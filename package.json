@@ -1,0 +1,56 @@
+{
+  "name": "hospital-unit",
+  "version": "1.0.0",
+  "description": "Apirest backend of the assigned hospital module",
+  "keywords": [
+    "node.js",
+    "TypeScript",
+    "Prisma",
+    "Express",
+    "Zod",
+    "JWT",
+    "Postgres",
+    "Docker"
+  ],
+  "homepage": "https://github.com/KoryCarrera/hospital_unit#readme",
+  "bugs": {
+    "url": "https://github.com/KoryCarrera/hospital_unit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KoryCarrera/hospital_unit.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "5.22.0",
+    "bcryptjs": "3.0.3",
+    "dotenv": "^16.4.7",
+    "express": "^5.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "zod": "3.23.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "22.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3",
+    "prisma": "5.22.0"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "author": "KoryCarrera",
+  "type": "module",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "prisma generate && tsc",
+    "start": "node dist/server.js",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
