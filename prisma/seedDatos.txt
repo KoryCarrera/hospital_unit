@@ -1,0 +1,86 @@
+rol: 1. administrador 2. operativo
+
+usuarios =
+nombre: Ana Garcia, Luis Perez, Maria Lopez
+username: admin_ana, oper_luis, admin_maria
+password: 12345, 12345, 12345
+rol: 1, 2, 1
+fecha_registro: 2024-01-10, 2024-01-15, 2024-02-01
+
+pacientes =
+nombre: Juanito Alimaña, Pepa Pig, Pedro picapiedra
+edad: 5, 25, 45
+genero: M, F, M
+eps: Sura, Coomeva, Sura
+fecha_registro: 2024-03-01, 2024-03-02, 2024-03-02
+
+pqr =
+tipo: Queja, Sugerencia
+estado: Pendiente, Resuelto
+paciente: 1, 2
+fecha: 2024-03-05, 2024-03-06
+
+medicamentos = 
+nombre: Acetaminofen Jarabe, Ibuprofeno 500mg 
+stock_actual: 50, 200
+stock_minimo: 100, 50 
+precio: 15000.00, 800.00
+
+medicos = 
+nombre: Dr. House, Dra. Polo 
+especialidad: Diagnóstico, Pediatría 
+turno: Noche, Mañana
+
+facturas = 
+metodo: Efectivo, Tarjeta
+monto: 50000.00, 120000.00
+fecha_pago: 2024-03-01, 2024-03-02
+
+laboratorio =
+tipo_examen: Sangre, Orina
+resultado: Normal, Alterado
+fecha: 2024-03-05, 2024-03-06
+
+camas_hosp =
+piso: 1, 2
+estado: Ocupada, Libre
+
+proveedores =
+nombre: Meditech SA, Farmasur
+deuda: 5000000, 200000
+calificacion: 5, 3
+
+ambulancia =
+placa: XYZ-123, ABC-789
+km_recorrido: 15000, 45000
+estado: Bueno, Dañado
+
+insumos aseo =
+nombre: Jabon Quirúrgico, Cloro
+cantidad: 20, 5
+area_uso: Urgencias, Pisos
+
+historias clinicas =
+enfermedad: Gripa Aviar, Gastritis
+alergias: Polvo, Ninguna
+paciente: 1, 2
+
+recetas med =
+medico: 1, 2
+cantidad: 3, 1
+fecha: 2024-03-08, 2024-03-09
+
+nominas =
+ccargo: Enfermera, Secretaria 
+sueldo: 2500000, 1300000
+faltas: 0, 2
+
+emergencias =
+triaje: 1, 4
+tiempo espera: 5, 120 
+fecha: 2024-03-10, 2024-03-10 
+
+equipos medicos =
+nombre: Resonador Magnético, Monitor Signos
+estado: En Uso, Disponible
+dias mantenimiento: 5, 30
