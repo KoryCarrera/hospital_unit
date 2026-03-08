@@ -1,7 +1,6 @@
 import { AuthService } from "@/services/authService.js";
 import { Request, Response } from "express";
 import { UserValidation } from "@/schemas/userSchema.js";
-import { error } from "console";
 
 export class AuthController {
     
