@@ -17,7 +17,7 @@ enum generos {
 
 model rol {
     id_rol Int @id
-    nombre_rol String @db.varchar(50)
+    nombre_rol String @db.VarChar(50)
     usuarios usuarios []
 }
 
@@ -28,6 +28,7 @@ model usuarios {
     password String @db.VarChar(255)
     fk_rol Int
     fecha_registro DateTime @db.Date
+    refresh_token String
     rol rol @relation(fields: [fk_rol], references: [id_rol])
 }
 
@@ -74,6 +75,7 @@ model medicos {
     nombre_medico String @db.VarChar(100)
     especialidad String @db.VarChar(50)
     turno String @db.VarChar(20)
+    recetas_med recetas_med []
 }
 
 model facturas {
