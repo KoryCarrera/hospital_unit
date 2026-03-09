@@ -1,6 +1,6 @@
-import { AuthService } from "@/services/authService.js";
+import { AuthService } from "../services/authService.js";
 import { Request, Response } from "express";
-import { UserValidation } from "@/schemas/userSchema.js";
+import { UserValidation } from "../schemas/userSchema.js";
 
 export class AuthController {
     
@@ -22,14 +22,6 @@ export class AuthController {
 
             const responseLogin = await this.authService.loginAuthUser(cleanData.data);
 
-            if (!responseLogin) {
-                res.status(401).json({
-                    success: false,
-                    data: "¡Credenciales invalidas!"
-                });
-                return
-            };
-
             res.status(200).json({
                 success: true,
                 data: responseLogin
@@ -38,8 +30,10 @@ export class AuthController {
 
             res.status(401).json({
                 success: false,
-                data: err,
-            })
+                data: err.message,
+            });
+
+            console.error(err);
         }
     }
 
@@ -67,8 +61,10 @@ export class AuthController {
 
             res.status(500).json({
                 success: false,
-                data: err
-            })
+                data: `Ha ocurrido un error ${err}`
+            });
+
+            console.error(err);
         }
     }
 }

@@ -7,6 +7,8 @@ export class ErrorHandler {
             //If JSON Syntax are bad, we response with status 400 and personalized message
             res.status(400).json({ message: 'Sintaxis de JSON invalida' });
 
+            console.error("Invalid JSON");
+
             return
         }
 

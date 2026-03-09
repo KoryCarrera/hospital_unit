@@ -10,9 +10,10 @@ export class UserRepository extends BaseRepository <usuarios> {
     public async getUserByUserName(userName: string){
         return await this.model.findUnique({
             where: { username: userName },
-            omit: {
+            select: {
                 id_user: true,
-                fecha_registro: true,
+                username: true,
+                password: true,
                 fk_rol: true
             }
         })

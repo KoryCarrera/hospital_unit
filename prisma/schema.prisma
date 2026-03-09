@@ -28,7 +28,7 @@ model usuarios {
     password String @db.VarChar(255)
     fk_rol Int
     fecha_registro DateTime @db.Date
-    refresh_token String
+    refresh_token String?
     rol rol @relation(fields: [fk_rol], references: [id_rol])
 }
 

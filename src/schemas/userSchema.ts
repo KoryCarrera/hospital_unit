@@ -14,8 +14,7 @@ export class UserValidation {
 
     private static loginUserSchema = z.object({
         username: z.string().min(5, '¡El nombre de usuario debe tener 6 o mas caracteres!'),
-        password: z.string().min(5, '¡Contraseña demasiado insegura, debe contener al menos 5 caracteres!'),
-        refresh_token: z.string()
+        password: z.string().min(5, '¡Contraseña demasiado insegura, debe contener al menos 5 caracteres!')
     });
 
     static validateRegUser(data: unknown){
