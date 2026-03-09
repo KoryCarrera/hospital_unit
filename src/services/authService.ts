@@ -46,7 +46,7 @@ export class AuthService {
                 rol: userFound.fk_rol,
             },
             access_token: accessToken,
-            refreshToken: refreshToken
+            refresh_Token: refreshToken
         }
     };
 

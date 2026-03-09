@@ -3,8 +3,8 @@ import { Request, Response } from "express";
 import { UserValidation } from "../schemas/userSchema.js";
 
 export class AuthController {
-    
-    constructor(private authService: AuthService){}
+
+    constructor(private authService: AuthService) { }
 
     public loginAuth = async (req: Request, res: Response) => {
 
@@ -12,7 +12,7 @@ export class AuthController {
 
             const cleanData = UserValidation.validateLoginUser(req.body);
 
-            if(!cleanData.success){
+            if (!cleanData.success) {
                 res.status(400).json({
                     success: false,
                     data: cleanData.error.errors
@@ -22,9 +22,26 @@ export class AuthController {
 
             const responseLogin = await this.authService.loginAuthUser(cleanData.data);
 
+            const isProduction = process.env.NODE_ENV === 'production';
+
+            res.cookie('access_token', responseLogin.access_token, {
+                httpOnly: true,
+                secure: isProduction,
+                sameSite: 'strict',
+                maxAge: 1000 * 60 * 60
+            });
+
+            res.cookie('refresh_token', responseLogin.refresh_Token, {
+                httpOnly: true,
+                secure: isProduction,
+                sameSite: 'strict',
+                path: '/api/v1/auth/refresh',
+                maxAge: 1000 * 60 * 60 * 24 * 7
+            });
+
             res.status(200).json({
                 success: true,
-                data: responseLogin
+                data: { user: responseLogin.user }
             });
         } catch (err: any) {
 
@@ -43,14 +60,14 @@ export class AuthController {
 
             const cleanData = UserValidation.validateRegUser(req.body);
 
-            if(!cleanData.success){
+            if (!cleanData.success) {
                 res.status(400).json({
                     success: false,
                     data: cleanData.error.errors
                 });
                 return;
             };
-            
+
             const newUser = await this.authService.registerAuthUser(cleanData.data);
 
             res.status(201).json({
