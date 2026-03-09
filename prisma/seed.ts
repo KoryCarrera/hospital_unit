@@ -36,9 +36,9 @@ async function main() {
     //All passwords are 12345
     await prisma.usuarios.createMany({
         data: [
-            { nombre_completo: 'Ana Garcia', username: 'admin_ana', password: '12345', fk_rol: 1, fecha_registro: new Date('2024-01-10') },
-            { nombre_completo: 'Luis Perez', username: 'oper_luis', password: '12345', fk_rol: 2, fecha_registro: new Date('2024-01-15') },
-            { nombre_completo: 'Maria Lopez', username: 'admin_maria', password: '12345', fk_rol: 1, fecha_registro: new Date('2024-02-01') }
+            { nombre_completo: 'Ana Garcia', username: 'admin_ana', password: '$2b$10$aU0jwHPmsF2kqcVselUdueU7S9JJakBEMm6TNxQx89swAepUt0ybG', fk_rol: 1, fecha_registro: new Date('2024-01-10') },
+            { nombre_completo: 'Luis Perez', username: 'oper_luis', password: '$2b$10$aU0jwHPmsF2kqcVselUdueU7S9JJakBEMm6TNxQx89swAepUt0ybG', fk_rol: 2, fecha_registro: new Date('2024-01-15') },
+            { nombre_completo: 'Maria Lopez', username: 'admin_maria', password: '$2b$10$aU0jwHPmsF2kqcVselUdueU7S9JJakBEMm6TNxQx89swAepUt0ybG', fk_rol: 1, fecha_registro: new Date('2024-02-01') }
         ]
     });
 
