@@ -1,4 +1,4 @@
-import { UserRepository } from "@/repositories/userRepository.js";
+import { UserRepository } from "../repositories/userRepository.js";
 import bcrypt from "bcryptjs";
 import  jwt from "jsonwebtoken";
 import { RegisterUserInput, LoginUserInput } from "@/schemas/userSchema.js";

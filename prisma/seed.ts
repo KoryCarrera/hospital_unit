@@ -17,7 +17,7 @@ async function main() {
 
     //We use for and not forEach because forEach doesn't work correctly with asynchronicity, while for does.
     for (const table of tables) {
-        await (prisma as any)[table].deleteMany() //We use (prisma as any) so that TypeScript allows us to use dynamic access
+        await prisma.$executeRawUnsafe(`TRUNCATE TABLE "${table}" RESTART IDENTITY CASCADE;`); //We execute SQL pure, because when you start container 2 o more times, the seed fail
     }
 
     //Create rols
@@ -135,7 +135,7 @@ async function main() {
     });
 
     //Create cleaning supplies
-    console.log('---Creando ambulancias---');
+    console.log('---Creando Insumos de Aseo---');
     await prisma.insumos_aseo.createMany({
         data: [
             { articulo: 'Jabon Quirúrgico', cantidad: 20, area_uso: 'Urgencias' },
@@ -196,6 +196,6 @@ main() //execute the main function with data seed
         console.error(`Ha ocurrido un error con la semilla: ${e}`);
         process.exit(1);
     })
-    .finally(async() => {
+    .finally(async () => {
         await prisma.$disconnect();
     })
