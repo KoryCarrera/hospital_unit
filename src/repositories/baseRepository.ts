@@ -7,15 +7,15 @@ export class BaseRepository<T> {
         protected model: any,
     ) {};
 
-    public async createRow(data: any){
+    public async createRow(data: Partial<T>): Promise<T>{
         return await this.model.create({ data });
     };
 
-    public async getAll(): Promise<T[]> {
+    public async getAll(): Promise<T> {
         return await this.model.findMany()
     };
 
-    public async findRowById(id: number){
+    public async findRowById(id: number): Promise<T | null>{
         return await this.model.findUnique({
             where: { id }
         })

@@ -7,7 +7,7 @@ export class UserRepository extends BaseRepository <usuarios> {
         super(prismaType, prismaType.usuarios)
     };
 
-    public async getUserByUserName(userName: string){
+    public async getUserByUserName(userName: string): Promise<usuarios | null>{
         return await this.model.findUnique({
             where: { username: userName },
             select: {
@@ -19,7 +19,7 @@ export class UserRepository extends BaseRepository <usuarios> {
         })
     };
     
-    public async saveUserToken(userName: string, token: string){
+    public async saveUserToken(userName: string, token: string): Promise<usuarios>{
         return await this.model.update({
             where: { username: userName },
             data: { refreshToken: token }
