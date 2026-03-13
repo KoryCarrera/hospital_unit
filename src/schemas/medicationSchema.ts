@@ -5,8 +5,8 @@ export class MedicationValidation {
 
     private static medicationRegSchema = z.object({
         nombre_med: z.string().max(100, '¡Nombre de medicamento demasiado largo!').min(3, '¡Nombre demasiado corto!'),
-        stock_actual: z.number().nonnegative('¡No se pueden ingresar valores negativos en stock!').optional(),
-        stock_minimo: z.number().nonnegative('¡No se pueden ingresar valores negativos en stock!').optional(),
+        stock_actual: z.number().nonnegative('¡No se pueden ingresar valores negativos en stock!'),
+        stock_minimo: z.number().nonnegative('¡No se pueden ingresar valores negativos en stock!'),
         precio: z.preprocess((val) => String(val), z.string())
             .refine((val) => !isNaN(Number(val)), '¡Debe ser un numero!')
             .transform((val) => new Prisma.Decimal(val))
