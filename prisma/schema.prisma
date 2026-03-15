@@ -1,11 +1,11 @@
 //First configuration of bd
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 //Enums definitions
@@ -16,142 +16,154 @@ enum generos {
 }
 
 model rol {
-    id_rol Int @id
-    nombre_rol String @db.VarChar(50)
-    usuarios usuarios []
+    id_rol     Int        @id
+    nombre_rol String     @db.VarChar(50)
+    usuarios   usuarios[]
 }
 
 model usuarios {
-    id_user Int @id @default(autoincrement())
-    nombre_completo String @db.VarChar(100)
-    username String @unique @db.VarChar(50)
-    password String @db.VarChar(255)
-    fk_rol Int
-    fecha_registro DateTime @db.Date
-    refresh_token String?
-    rol rol @relation(fields: [fk_rol], references: [id_rol])
+    id_user         Int          @id @default(autoincrement())
+    nombre_completo String       @db.VarChar(100)
+    username        String       @unique @db.VarChar(50)
+    password        String       @db.VarChar(255)
+    fk_rol          Int
+    fecha_registro  DateTime     @db.Date
+    refresh_token   String?
+    rol             rol          @relation(fields: [fk_rol], references: [id_rol])
+    auditorias      auditorias[]
+}
+
+model auditorias {
+    id_aud         Int      @id @default(autoincrement())
+    tabla_afectada String   @db.VarChar(20)
+    tipo_accion    String   @db.VarChar(20)
+    id_user        Int
+    valor_anterior Json?
+    valor_actual   Json?
+    fecha          DateTime @default(now())
+    usuarios       usuarios @relation(fields: [id_user], references: [id_user])
 }
 
 model pacientes {
-    id_paciente Int @id @default(autoincrement())
-    nombre String @db.VarChar(100)
-    edad Int
-    genero generos
-    eps String @db.VarChar(50)
-    fecha_ingreso DateTime @db.Date
-    pqr_quejas pqr_quejas []
-    citas_medicas citas_medicas []
-    historia_clin historias_clin []
+    id_paciente   Int              @id @default(autoincrement())
+    nombre        String           @db.VarChar(100)
+    edad          Int
+    genero        generos
+    eps           String           @db.VarChar(50)
+    fecha_ingreso DateTime         @db.Date
+    pqr_quejas    pqr_quejas[]
+    citas_medicas citas_medicas[]
+    historia_clin historias_clin[]
 }
 
 model pqr_quejas {
-    id_pqr Int @id @default(autoincrement())
-    tipo String @db.VarChar(50)
-    estado String @db.VarChar(20)
+    id_pqr      Int       @id @default(autoincrement())
+    tipo        String    @db.VarChar(50)
+    estado      String    @db.VarChar(20)
     id_paciente Int
-    fecha DateTime @db.Date
-    pacientes pacientes @relation(fields: [id_paciente], references: [id_paciente])
+    fecha       DateTime  @db.Date
+    pacientes   pacientes @relation(fields: [id_paciente], references: [id_paciente])
 }
 
 model citas_medicas {
-    id_cita Int @id @default(autoincrement())
-    especialidad String @db.VarChar(50)
-    estado_cita String @db.VarChar(20)
-    fecha DateTime @db.Date
-    id_paciente Int
-    pacientes pacientes @relation(fields: [id_paciente], references: [id_paciente])
+    id_cita      Int       @id @default(autoincrement())
+    especialidad String    @db.VarChar(50)
+    estado_cita  String    @db.VarChar(20)
+    fecha        DateTime  @db.Date
+    id_paciente  Int
+    pacientes    pacientes @relation(fields: [id_paciente], references: [id_paciente])
 }
 
 model medicamentos {
-    id_med Int @id @default(autoincrement())
-    nombre_med String @db.VarChar(100)
+    id_med       Int     @id @default(autoincrement())
+    nombre_med   String  @db.VarChar(100)
     stock_actual Int
     stock_minimo Int
-    precio Decimal @db.Decimal(10, 2)
+    precio       Decimal @db.Decimal(10, 2)
 }
 
 model medicos {
-    id_medico Int @id @default(autoincrement())
-    nombre_medico String @db.VarChar(100)
-    especialidad String @db.VarChar(50)
-    turno String @db.VarChar(20)
-    recetas_med recetas_med []
+    id_medico     Int           @id @default(autoincrement())
+    nombre_medico String        @db.VarChar(100)
+    especialidad  String        @db.VarChar(50)
+    turno         String        @db.VarChar(20)
+    recetas_med   recetas_med[]
 }
 
 model facturas {
-    id_facura Int @id @default(autoincrement())
-    metodo_pago String @db.VarChar(50)
-    monto Decimal @db.Decimal(10, 2)
-    fecha_pago DateTime @db.Date
+    id_facura   Int      @id @default(autoincrement())
+    metodo_pago String   @db.VarChar(50)
+    monto       Decimal  @db.Decimal(10, 2)
+    fecha_pago  DateTime @db.Date
 }
 
 model laboratorio {
-    id_lab Int @id @default(autoincrement())
-    tipo_examen String @db.VarChar(50)
-    resultado String @db.VarChar(20)
-    fecha DateTime @db.Date
+    id_lab      Int      @id @default(autoincrement())
+    tipo_examen String   @db.VarChar(50)
+    resultado   String   @db.VarChar(20)
+    fecha       DateTime @db.Date
 }
 
 model camas_hosp {
-    id_cama Int @id @default(autoincrement())
-    piso Int
+    id_cama     Int    @id @default(autoincrement())
+    piso        Int
     estado_cama String @db.VarChar(20)
 }
 
 model proveedores {
-    id_prov Int @id @default(autoincrement())
-    nombre_empresa String @db.VarChar(100)
-    monto_deuda Decimal @db.Decimal(10, 2)
-    calificacion Int
+    id_prov        Int     @id @default(autoincrement())
+    nombre_empresa String  @db.VarChar(100)
+    monto_deuda    Decimal @db.Decimal(10, 2)
+    calificacion   Int
 }
 
 model ambulancias {
-    id_amb Int @id @default(autoincrement())
-    placa String @db.VarChar(10)
-    km_recorrido Int
+    id_amb          Int    @id @default(autoincrement())
+    placa           String @db.VarChar(10)
+    km_recorrido    Int
     estado_mecanico String @db.VarChar(20)
 }
 
 model insumos_aseo {
-    id_aseo Int @id @default(autoincrement())
+    id_aseo  Int    @id @default(autoincrement())
     articulo String @db.VarChar(50)
-    cantidad Int 
+    cantidad Int
     area_uso String @db.VarChar(50)
 }
 
 model historias_clin {
-    id_hist Int @id @default(autoincrement())
-    enfermedad String @db.VarChar(100)
-    alergias String @db.VarChar(100)
+    id_hist     Int       @id @default(autoincrement())
+    enfermedad  String    @db.VarChar(100)
+    alergias    String    @db.VarChar(100)
     id_paciente Int
-    pacientes pacientes @relation(fields: [id_paciente], references: [id_paciente])
+    pacientes   pacientes @relation(fields: [id_paciente], references: [id_paciente])
 }
 
 model recetas_med {
-    id_receta Int @id @default(autoincrement())
-    id_medico Int
+    id_receta    Int      @id @default(autoincrement())
+    id_medico    Int
     cantidad_med Int
     fecha_receta DateTime @db.Date
-    medicos medicos @relation(fields: [id_medico], references: [id_medico])
+    medicos      medicos  @relation(fields: [id_medico], references: [id_medico])
 }
 
 model nomina_pers {
-    id_nom Int @id @default(autoincrement())
-    cargo String @db.VarChar(50)
-    sueldo Decimal @db.Decimal(10,2)
+    id_nom Int     @id @default(autoincrement())
+    cargo  String  @db.VarChar(50)
+    sueldo Decimal @db.Decimal(10, 2)
     faltas Int
 }
 
 model emergencias {
-    id_em Int @id @default(autoincrement())
-    triaje Int
+    id_em             Int      @id @default(autoincrement())
+    triaje            Int
     tiempo_espera_min Int
-    fecha DateTime @db.Date
+    fecha             DateTime @db.Date
 }
 
 model equipos_med {
-    id_equipo Int @id @default(autoincrement())
-    nombre_equipo String @db.VarChar(100)
-    estado_uso String @db.VarChar(20)
+    id_equipo               Int    @id @default(autoincrement())
+    nombre_equipo           String @db.VarChar(100)
+    estado_uso              String @db.VarChar(20)
     dias_para_mantenimiento Int
 }
