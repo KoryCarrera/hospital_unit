@@ -22,7 +22,7 @@ export class UserRepository extends BaseRepository <usuarios> {
     public async saveUserToken(userName: string, token: string): Promise<usuarios>{
         return await this.model.update({
             where: { username: userName },
-            data: { refreshToken: token }
+            data: { refresh_token : token }
         })
     }
 }
