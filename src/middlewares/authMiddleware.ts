@@ -4,17 +4,14 @@ import { userStorage } from "../context/userContext.js";
 export class AuthMiddle {
 
     static verifyToken(req: any, res: any, next: any) {
-
-        if (!req.headers.authorization) {
-            return res.status(401).json({ message: "Unauthorized" });
+        if (!req.cookies.access_token) {
+            return res.status(401).json({ message: "¡No autorizado!"})
         }
 
-        const authHeader = req.headers.authorization;
-
-        const token = authHeader.split(/\s+/)[1];
+        const token = req.cookies.access_token;
 
         if (!token) {
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({ message: "¡No autorizado!"})
         }
 
         try {
@@ -22,7 +19,7 @@ export class AuthMiddle {
             const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET ?? "super_secret_and_long_key");
 
             if (!decoded) {
-                return res.status(401).json({ message: "Unauthorized" });
+                return res.status(401).json({ message: "¡No autorizado!"})
             }
 
             req.user = decoded;
@@ -31,10 +28,11 @@ export class AuthMiddle {
 
             userStorage.run({ userId }, () => {
                 next();
-            });
+            })
 
         } catch (err) {
-            return res.status(401).json({ message: "Unauthorized" });
+            console.error(err);
+            return res.status(401).json({ message: "¡No autorizado!"})
         }
     }
 }
