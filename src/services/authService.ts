@@ -57,7 +57,8 @@ export class AuthService {
 
         const newUser = {
             ...data,
-            password: hashed
+            password: hashed,
+            fk_rol: 2
         };
 
         const userCreated = await this.user.createRow(newUser);
