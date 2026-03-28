@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { userStorage } from "../context/userContext.js";
+import type { roles } from "../types/userType.js";
 
 export class AuthMiddle {
 
@@ -34,5 +35,25 @@ export class AuthMiddle {
             console.error(err);
             return res.status(401).json({ message: "¡No autorizado!"})
         }
+    }
+
+    static userAuthorization(...allowRols: roles[]) {
+        
+        return (req: any, res: any, next: any) => {
+
+            if (!req.user) {
+               return res.status(401).json({ message: "¡No autorizado!"}) 
+            };
+
+            const userRol = req.user.rol;
+
+            const hasPermission = allowRols.includes(userRol);
+
+            if (!hasPermission) {
+                return res.status(403).json({ message: "¡No autorizado!"});
+            };
+
+            next();
+        };
     }
 }
