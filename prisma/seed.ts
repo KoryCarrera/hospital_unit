@@ -26,7 +26,8 @@ async function main() {
     await prisma.rol.createMany({
         data: [
             { id_rol: 1, nombre_rol: 'administrador' },
-            { id_rol: 2, nombre_rol: 'operativo' }
+            { id_rol: 2, nombre_rol: 'operativo' },
+            { id_rol: 3, nombre_rol: 'pendiente' },
         ]
     });
 

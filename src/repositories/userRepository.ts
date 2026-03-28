@@ -1,5 +1,7 @@
 import { PrismaClient, usuarios } from "@prisma/client";
 import { BaseRepository } from "./baseRepository.js";
+import { UserLogin } from "../types/userType.js";
+import { userLoginArgs } from "../types/userType.js";
 
 export class UserRepository extends BaseRepository <usuarios> {
 
@@ -7,15 +9,10 @@ export class UserRepository extends BaseRepository <usuarios> {
         super(prismaType, prismaType.usuarios)
     };
 
-    public async getUserByUserName(userName: string): Promise<usuarios | null>{
+    public async getUserByUserName(userName: string): Promise<UserLogin | null>{
         return await this.model.findUnique({
             where: { username: userName },
-            select: {
-                id_user: true,
-                username: true,
-                password: true,
-                fk_rol: true
-            }
+            ...userLoginArgs
         })
     };
     
@@ -26,7 +23,7 @@ export class UserRepository extends BaseRepository <usuarios> {
         })
     };
 
-    public async userInfo(): Promise<usuarios[]>{
+    public async usersInfo(): Promise<usuarios[]>{
         return await this.model.findMany({
             select: {
                 nombre_completo: true,
@@ -34,7 +31,7 @@ export class UserRepository extends BaseRepository <usuarios> {
                 fecha_registro: true,
                 rol: {
                     select: {
-                        name: true
+                        nombre_rol: true
                     }
                 },
                 _count: {
