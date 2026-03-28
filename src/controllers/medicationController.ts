@@ -40,4 +40,24 @@ export class MedicationController {
 
         };
     };
+
+    public analyticsMedication = async (_req: Request, res: Response) => {
+
+        try {
+
+            const responseService = this.mediService.medicationAnalysis();
+
+            res.status(200).json({
+                success: true,
+                analytics: responseService
+            })
+        } catch (err: any) {
+            console.error (err);
+
+            res.status(500).json({
+                success: false,
+                mesagge: err.mesagge
+            })
+        }
+    }
 }
