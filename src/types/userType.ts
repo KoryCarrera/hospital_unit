@@ -1,0 +1,1 @@
+export type roles = 'administrador' | 'operativo';
