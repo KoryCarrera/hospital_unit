@@ -11,4 +11,6 @@ export class MedicationService {
     public async registerNewMedication(data: RegisterMedicationInput): Promise<medicamentos>{
         return await this.medication.createRow(data);
     };
+
+    
 }
