@@ -9,7 +9,7 @@ export class AuthService {
         private user: UserRepository
     ){}
 
-    public async loginAuthUser(data: LoginUserInput){
+    public async loginAuthUser(data: LoginUserInput): Promise<object>{
 
         const userFound = await this.user.getUserByUserName(data.username);
 
@@ -50,7 +50,7 @@ export class AuthService {
         }
     };
 
-    public async registerAuthUser(data: RegisterUserInput){
+    public async registerAuthUser(data: RegisterUserInput): Promise<object>{
 
         const salt = await bcrypt.genSalt(10);
         const hashed = await bcrypt.hash(data.password, salt);

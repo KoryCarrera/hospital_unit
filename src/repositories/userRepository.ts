@@ -24,5 +24,25 @@ export class UserRepository extends BaseRepository <usuarios> {
             where: { username: userName },
             data: { refresh_token : token }
         })
-    }
+    };
+
+    public async userInfo(): Promise<usuarios[]>{
+        return await this.model.findMany({
+            select: {
+                nombre_completo: true,
+                username: true,
+                fecha_registro: true,
+                rol: {
+                    select: {
+                        name: true
+                    }
+                },
+                _count: {
+                    select: {
+                        auditorias: true
+                    }
+                }
+            }
+        });
+    };
 }
