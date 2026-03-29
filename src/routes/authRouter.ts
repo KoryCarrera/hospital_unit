@@ -3,6 +3,7 @@ import { prisma } from "../config/prisma.js";
 import { UserRepository } from "../repositories/userRepository.js";
 import { AuthService } from "../services/authService.js";
 import { AuthController } from "../controllers/authController.js";
+import { AuthMiddle } from "../middlewares/authMiddleware.js";
 
 const authRouter = Router();
 const userRepository = new UserRepository(prisma);
@@ -11,5 +12,6 @@ const authController = new AuthController(authService);
 
 authRouter.post('/login', authController.loginAuth);
 authRouter.post('/register', authController.authRegisterUser);
+authRouter.get('/me', AuthMiddle.verifyToken, authController.getMe);
 
 export default authRouter;
