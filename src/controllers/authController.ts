@@ -1,6 +1,7 @@
 import { AuthService } from "../services/authService.js";
 import { Request, Response } from "express";
 import { UserValidation } from "../schemas/userSchema.js";
+import type { AuthRequest } from "../interfaces/userInterface.js";
 
 export class AuthController {
 
@@ -83,5 +84,9 @@ export class AuthController {
 
             console.error(err);
         }
+    };
+
+    public getMe = (req: AuthRequest, res: Response) => {
+        res.json(req.user);
     }
 }
